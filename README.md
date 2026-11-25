@@ -24,14 +24,24 @@ Start a new session after installing.
 
 ## Terminal support
 
-The layout is tuned for **cmux / Ghostty**, measured on screen. These terminals lay out each run of Hebrew (Hebrew letters plus the spaces, punctuation and digits between them) right-to-left by themselves, but do not order a whole line that mixes Hebrew and English. They also leave cell colors in place when they move glyphs. The mod therefore:
+| Terminal | Status | How it was checked |
+| --- | --- | --- |
+| cmux | ✅ Works | Live in Claude Code, plus test lines captured and zoomed on screen |
+| iTerm2 (bidi setting on) | ✅ Works | Same test lines captured on screen; output identical to cmux |
+| Apple Terminal | ✅ Works | Same test lines captured on screen; output identical to cmux |
+| Ghostty | ❔ Probably works | Not tested. cmux is built on Ghostty, so it likely behaves the same |
+| iTerm2 (bidi setting off) | ❔ Not tested | |
+| VS Code / Cursor terminal | ❔ Not tested | |
+| Others (WezTerm, Kitty, Warp, Windows Terminal, …) | ❔ Not tested | |
+
+All three tested terminals behave the same way: each run of Hebrew (Hebrew letters plus the spaces, punctuation and digits between them) is drawn right-to-left by the terminal itself, but a whole line that mixes Hebrew and English is not reordered, and cell colors stay in place when glyphs move. The mod therefore:
 
 1. word-wraps each Hebrew line itself to the terminal width,
 2. computes the visual right-to-left order of the line (a simplified Unicode Bidirectional Algorithm),
 3. pre-flips every Hebrew run so the terminal's own flip puts it back in the right place, keeping each cell's color and weight where it belongs,
 4. right-aligns the result.
 
-In terminals that handle Hebrew differently (for example iTerm2 with bidi turned on, or Apple Terminal), Hebrew may come out reversed. Issues and pull requests for other terminals are welcome.
+A terminal that behaves differently may show Hebrew reversed. Reports (a screenshot of a Hebrew reply) and pull requests for other terminals are welcome.
 
 ## How it works
 
@@ -51,7 +61,7 @@ The mod hooks Claude Code's `ui.render` for `AssistantMessage`, `UserMessage` an
 `/plugin install hebrew-rtl --marketplace eladcandroid/claude-code-hebrew-rtl`
 ופתחו סשן חדש.
 
-המוד מותאם ל-cmux ול-Ghostty. בטרמינלים אחרים ייתכן שהעברית תתהפך.
+נבדק ועובד ב-cmux, ב-iTerm2 (כשהגדרת ה-bidi פעילה) וב-Terminal של Apple. Ghostty, VS Code, Cursor וטרמינלים אחרים לא נבדקו, וייתכן שבהם העברית תתהפך.
 
 ## License
 
