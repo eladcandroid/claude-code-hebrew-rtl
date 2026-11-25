@@ -1,0 +1,12 @@
+{
+  "name": "claude-code-hebrew-rtl",
+  "owner": {
+    "name": "eladcandroid"
+  },
+  "plugins": [
+    {
+      "name": "hebrew-rtl",
+      "source": "./"
+    }
+  ]
+}
